@@ -1,0 +1,24 @@
+version: '3'
+services:
+  backend:
+    build: ./backend
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    depends_on:
+      - postgis
+  frontend:
+    build: ./frontend
+    ports:
+      - 5076:8080
+    depends_on:
+      - backend
+  postgis:
+    image: postgis/postgis
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=misterix

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import sequelize from "./data/sequelize.js";
-import { authenticateToken, checkLegendModel, checkLegendOwner } from "./middlewares.js";
+import sequelize from "../data/sequelize.js";
+import { authenticateToken, checkLegendModel, checkLegendOwner } from "../middlewares.js";
 
 const legendRouter = new Router();
 
@@ -14,12 +14,26 @@ legendRouter.get('/', async (req, res) => {
     }
 });
 
-legendRouter.get('/:id', async (req, res) => {
-    const {id} = req.params;
+// legendRouter.get('/:id', async (req, res) => {
+//     const {id} = req.params;
+//     try{
+//         const legend = await sequelize.models.Legend.findByPk(id);
+//         res.status(200).json(legend);    
+//     }catch(err){
+//         console.log(err);
+//         res.sendStatus(500);
+//     }
+// })
+
+legendRouter.get('/mylegends', authenticateToken, async (req, res) => {
+    const {login} = res.locals;
     try{
-        const legend = await sequelize.models.Legend.findByPk(id);
-        res.status(200).json(legend);    
-    }catch(err){
+        const legends = await sequelize.models.Legend.findAll({
+            where: {postedBy: login}
+        })
+        res.status(200).json(legends);
+    }
+    catch(err){
         console.log(err);
         res.sendStatus(500);
     }

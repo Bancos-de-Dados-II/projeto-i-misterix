@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import sequelize from './data/sequelize.js'
 
 export async function checkLegendOwner(req, res, next){
     const {id} = req.params;
