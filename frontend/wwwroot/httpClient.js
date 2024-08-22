@@ -5,7 +5,7 @@ function getCookie(name) {
 }
 
 window.login = async (login, password) => {
-    const res = await fetch('http://backend:3000/users/login', {
+    const res = await fetch('http://localhost:3000/users/login', {
         method: 'POST',
         body: JSON.stringify({login, password}),
         headers:{
@@ -21,7 +21,7 @@ window.login = async (login, password) => {
 
 window.postLegend = async (legend) => {
     const token = getCookie('token');
-    const res = await fetch('http://backend:3000/legends', {
+    const res = await fetch('http://localhost:3000/legends', {
         method: 'POST',
         body: JSON.stringify(legend),
         headers:{
@@ -33,7 +33,7 @@ window.postLegend = async (legend) => {
 }
 
 window.getLegends = async () => {
-    const res = await fetch('http://backend:3000/legends', {
+    const res = await fetch('http://localhost:3000/legends', {
         method: 'GET'
     });
     if(res.status == 200){
@@ -47,7 +47,7 @@ window.getLegends = async () => {
 
 window.getMyLegends = async () => {
     const token = getCookie('token');
-    const res = await fetch('http://backend:3000/legends/mylegends', {
+    const res = await fetch('http://localhost:3000/legends/mylegends', {
         method: 'Get',
         headers: {
             "Authorization": token
@@ -64,7 +64,7 @@ window.getMyLegends = async () => {
 
 window.updateLegend = async (legend, id) => {
     const token = getCookie('token');
-    const res = await fetch('http://backend:3000/legends/' + id, {
+    const res = await fetch('http://localhost:3000/legends/' + id, {
         method: 'PUT',
         body: JSON.stringify(legend),
         headers:{
@@ -77,7 +77,7 @@ window.updateLegend = async (legend, id) => {
 
 window.deleteLegend = async (id) => {
     const token = getCookie('token');
-    const res = await fetch('http://backend:3000/legends/' + id, {
+    const res = await fetch('http://localhost:3000/legends/' + id, {
         method: 'DELETE',
         headers:{
             "Authorization": token
@@ -88,7 +88,7 @@ window.deleteLegend = async (id) => {
 
 window.checkAuth = async () => {
     const token = getCookie('token');
-    const res = await fetch('http://backend:3000/auth', {
+    const res = await fetch('http://localhost:3000/auth', {
         method: 'GET',
         headers:{
             "Authorization": token
